@@ -1,18 +1,19 @@
-var thumbUp = document.getElementsByClassName("fa-thumbs-up");
+var edit = document.getElementsByClassName("fa-pencil");
 var trash = document.getElementsByClassName("fa-trash");
 
-Array.from(thumbUp).forEach(function(element) {
+Array.from(edit).forEach(function(element) {
       element.addEventListener('click', function(){
         const date = this.parentNode.parentNode.childNodes[1].innerText
         const msg = this.parentNode.parentNode.childNodes[3].innerText
-        //const thumbUp = parseFloat(this.parentNode.parentNode.childNodes[5].innerText)
+        const userInput = prompt('put your text here')
+        console.log(userInput)
         fetch('messages', {
           method: 'put',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({
             'date': date,
             'msg': msg,
-            //'thumbUp':thumbUp
+            'newMsg': userInput
           })
         })
         .then(response => {

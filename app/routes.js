@@ -37,10 +37,16 @@ module.exports = function(app, passport, db) {
     })
 
     app.put('/messages', (req, res) => {
+      let msgPayload 
+      if (req.body.newMsg){
+        msgPayload = req.body.newMsg
+      }else{
+        msgPayload = req.body.msg
+      }
       db.collection('entries')
-      .findOneAndUpdate({date: req.body.date,  msg: req.body.msg}, {
+      .findOneAndUpdate({date: req.body.date,  msg: req.body.msg,}, {
         $set: {
-          //thumbUp:req.body.thumbUp + 1
+          msg:msgPayload
         }
       }, {
         sort: {_id: -1},
